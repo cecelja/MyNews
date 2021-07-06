@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //A comment
         ListView storyListView = (ListView) findViewById(R.id.listview);
 
         mAdapter = new StoryArrayAdapter(this, new ArrayList<Story>());
