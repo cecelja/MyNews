@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         ListView storyListView = (ListView) findViewById(R.id.listview);
 
         mAdapter = new StoryArrayAdapter(this, new ArrayList<Story>());
-
+        //Another commment
         //Start the process while the application starts
         LoaderManager loaderManager = getSupportLoaderManager();
         loaderManager.restartLoader(1, null,this);
