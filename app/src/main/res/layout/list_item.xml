@@ -19,6 +19,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_weight="1"
@@ -26,7 +27,7 @@
         android:textColor="@color/black"
         android:maxLines="3"
         android:textAlignment="textStart"
-        android:textSize="24sp"
+        android:textSize="20sp"
         tools:text="Title of the article, Varazdin is not a great city to live in. But me and Dea really want to leave." />
 
     <TextView
