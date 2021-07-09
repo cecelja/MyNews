@@ -22,7 +22,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
             return new TechFragment();
         } else if (position == 1){
             return new PoliticsFragment();
-        } else (position == 2){
+        } else {
             return new EconomicsFragment();
         }
     }
