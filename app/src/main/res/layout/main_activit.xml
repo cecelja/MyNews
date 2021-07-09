@@ -12,8 +12,11 @@
         android:layout_height="match_parent">
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
+            app:tabIndicatorColor="#FF7F50"
             android:layout_height="wrap_content"
-            android:background="@color/black"/>
+            app:tabTextColor="@color/black"
+            app:tabSelectedTextColor="#FF7F50"
+            android:background="@color/white"/>
     </androidx.viewpager.widget.ViewPager>
 
 </LinearLayout>
