@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:enabled="true"
+        android:id="@+id/News"
+        android:title="News"
+        android:icon="@drawable/ic_icon_foreground"
+        />
+    <item
+        android:id="@+id/Search"
+        android:title="Search"
+        android:icon="@drawable/search2_foreground"
+        />
+    <item
+        android:title="Saved"
+        android:id="@+id/Saved"
+        android:icon="@drawable/search_foreground"
+        />
+
+</menu>
