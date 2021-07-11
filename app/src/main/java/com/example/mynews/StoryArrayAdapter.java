@@ -58,27 +58,4 @@ public class StoryArrayAdapter extends ArrayAdapter<Story> {
         return listItemView;
     }
 
-    /**
-     * With this method we format the date from the API such as 2021-06-30T23:55:33Z
-     * Into 2021-06-30
-     * */
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private static String formatDate(String date){
-        String dateString = "";
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-
-        try{
-        Date dateObject = dateFormat.parse(date);
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-        dateString = formatter.format(dateObject);
-
-        } catch (ParseException e){
-            e.printStackTrace();
-        }
-
-        return dateString;
-    }
 }

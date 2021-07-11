@@ -13,7 +13,7 @@ public class Story {
     private String mURL;
     private Bitmap mThumbnail;
     private String mTitle;
-    private String mAuthor;
+    private String mBodyText;
     private String mDate;
 
     public Story(String url, Bitmap thumb, String title, String date){
@@ -40,4 +40,6 @@ public class Story {
 
     //Returns the date of the given Story
     public String getmDate(){return mDate;}
+
+    //Returns bodytext of the given story
 }

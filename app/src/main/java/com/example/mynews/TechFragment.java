@@ -23,9 +23,7 @@ import java.util.ArrayList;
 public class TechFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Story>> {
 
     private StoryArrayAdapter mAdapter;
-    private static final String GUARDIAN_URL_2 = "https://content.guardianapis.com/search?q=technology" +
-            "&show-fields=thumbnail,trailText,headline" +
-            "&show-references=author&order-by=newest&section=technology&api-key=test";
+    private static final String GUARDIAN_URL_2 = "https://content.guardianapis.com/search?q=technology&show-fields=thumbnail,trailText,headline,BodyText&show-references=author&order-by=newest&section=technology&api-key=test";
 
     @Nullable
     @org.jetbrains.annotations.Nullable
