@@ -3,18 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/savedtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="You cannot save right now."
-        android:textColor="@color/black"
-        android:textAlignment="center"
-        android:textSize="32sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ListView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:divider="@color/black"
+        android:dividerHeight="1dp"
+        android:id="@+id/listview_saved"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

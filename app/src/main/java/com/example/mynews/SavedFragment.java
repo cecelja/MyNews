@@ -1,12 +1,16 @@
 package com.example.mynews;
 
 import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.ContentView;
@@ -16,7 +20,14 @@ import androidx.fragment.app.Fragment;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
+import static com.example.mynews.SavedStoryContract.SavedStory.TABLE_NAME;
+
 public class SavedFragment extends Fragment {
+
+    SQLiteDatabase db;
+    SQLiteDatabase readDb;
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -26,19 +37,54 @@ public class SavedFragment extends Fragment {
         }
         View rootView = inflater.inflate(R.layout.saved_activity, container, false);
 
-        TextView txt = (TextView) rootView.findViewById(R.id.savedtext);
+        //TextView txt = (TextView) rootView.findViewById(R.id.savedtext);
+        ListView list = (ListView) rootView.findViewById(R.id.listview_saved);
+
+        DataArrayAdapter adapterData = new DataArrayAdapter(getActivity(), new ArrayList<DataModel>());
 
         SavedStoryDbHelper helper = new SavedStoryDbHelper(getContext());
-        SQLiteDatabase db = helper.getWritableDatabase();
+        db = helper.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(SavedStoryContract.SavedStory.COLUMN_NAME_TITLE, "First entry");
-        values.put(SavedStoryContract.SavedStory.COLUMN_NAME_SUBTITLE, "https://www.google.com/search?q=google");
+        //ContentValues values = new ContentValues();
+        //values.put(SavedStoryContract.SavedStory.COLUMN_NAME_TITLE, "First");
+        //values.put(SavedStoryContract.SavedStory.COLUMN_NAME_SUBTITLE, "https://www.google.com/search?q=google");
 
-        long newRowID;
-        newRowID = db.insert(SavedStoryContract.SavedStory.TABLE_NAME, null, values);
-        Log.i("Logger", "Print the database" + db.getPath().toString());
+        //long newRowID = db.insert(TABLE_NAME, null, values);
+        //Log.i("Logger", "Print the database " + newRowID);
 
+
+        readDb = helper.getReadableDatabase();
+
+        Cursor data = readDb.rawQuery("SELECT * FROM " + TABLE_NAME,null);
+        Log.i("Logger", "Is there a problem? " + getProfilesCount());
+        int returned = data.getColumnCount();
+        ArrayList<String> podatci = new ArrayList<String>();
+        for(int i = 0; i <= getProfilesCount(); i++){
+            if(data.moveToNext()){
+                int index = data.getColumnIndex("url");
+            podatci.add(data.getString(index));
+            }
+
+        }
+        Cursor data2 = readDb.rawQuery("SELECT * FROM " + TABLE_NAME,null);
+        Log.i("Logger", "Is there a problem? 1" + podatci);
+        ArrayList<String> podatci2 = new ArrayList<String>();
+        for(int k = 0; k <= getProfilesCount(); k++){
+            if(data2.moveToNext()){
+                int index2 = data2.getColumnIndex("title");
+                podatci2.add(data2.getString(index2));
+            }
+        }
+        Log.i("Logger", "Is there a problem? 2" + podatci2);
+        ArrayList<DataModel> listData = new ArrayList<DataModel>();
+        for(int j = 0; j < getProfilesCount(); j++){
+            listData.add(new DataModel(podatci2.get(j), podatci.get(j)));
+        }
+
+        Log.i("Logger", "Is there a problem? 3" +" " + podatci);
+
+        adapterData.addAll(listData);
+        list.setAdapter(adapterData);
 
         return rootView;
     }
@@ -47,4 +93,11 @@ public class SavedFragment extends Fragment {
     public void onStop() {
         super.onStop();
     }
+
+    public long getProfilesCount() {
+        SQLiteDatabase dreb = readDb;
+        long count = DatabaseUtils.queryNumEntries(dreb, TABLE_NAME);
+        return count;
+    }
+
 }

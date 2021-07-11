@@ -44,7 +44,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:textColor="#949494"
-            tools:text="Save article"
+            android:text="Save article"
             android:layout_gravity="start"
             android:textSize="16sp"/>
 
