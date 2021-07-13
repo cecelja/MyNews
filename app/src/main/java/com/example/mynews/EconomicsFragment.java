@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +38,9 @@ public class EconomicsFragment extends Fragment implements LoaderManager.LoaderC
 
         //Initiate a new arrayadapter
         mAdapter = new StoryArrayAdapter(this.getActivity(),new ArrayList<Story>());
+
+        SavedStoryDbHelper db = new SavedStoryDbHelper(getContext());
+        Log.i("Logger", "Is it initilazied " + db);
 
         //Start the download process
         LoaderManager loaderManager = getLoaderManager();

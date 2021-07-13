@@ -1,6 +1,7 @@
 package com.example.mynews;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
@@ -10,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static com.example.mynews.SavedStoryContract.SavedStory.TABLE_NAME;
 import static com.example.mynews.Utils.LOG_TAG;
 
 public class StoryArrayAdapter extends ArrayAdapter<Story> {
@@ -54,6 +60,24 @@ public class StoryArrayAdapter extends ArrayAdapter<Story> {
         TextView date = (TextView) listItemView.findViewById(R.id.date);
         //Set the date String to the textView
         date.setText(currentStory.getmDate());
+
+        SavedStoryDbHelper db = new SavedStoryDbHelper(getContext());
+        SQLiteDatabase dbs = db.getWritableDatabase();
+
+        TextView view = (TextView) listItemView.findViewById(R.id.save_article);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContentValues values = new ContentValues();
+                values.put(SavedStoryContract.SavedStory.COLUMN_NAME_TITLE, currentStory.getmTitle());
+                values.put(SavedStoryContract.SavedStory.COLUMN_NAME_SUBTITLE, currentStory.getmURL());
+
+                long newRowID = dbs.insert(TABLE_NAME, null, values);
+                Log.i("Logger", "Print the database " + newRowID);
+                values.clear();
+                view.setText("Saved");
+            }
+        });
 
         return listItemView;
     }

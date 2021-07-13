@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ import static com.example.mynews.SavedStoryContract.SavedStory.TABLE_NAME;
 
 public class SavedFragment extends Fragment {
 
-    SQLiteDatabase db;
+    public SQLiteDatabase db;
     SQLiteDatabase readDb;
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -45,12 +46,30 @@ public class SavedFragment extends Fragment {
         SavedStoryDbHelper helper = new SavedStoryDbHelper(getContext());
         db = helper.getWritableDatabase();
 
-        //ContentValues values = new ContentValues();
-        //values.put(SavedStoryContract.SavedStory.COLUMN_NAME_TITLE, "First");
-        //values.put(SavedStoryContract.SavedStory.COLUMN_NAME_SUBTITLE, "https://www.google.com/search?q=google");
 
-        //long newRowID = db.insert(TABLE_NAME, null, values);
-        //Log.i("Logger", "Print the database " + newRowID);
+        Button btnDelete = (Button) rootView.findViewById(R.id.button_delete);
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.delete(TABLE_NAME, null, null);
+            }
+        });
+
+
+        Button btnAdd = (Button) rootView.findViewById(R.id.button_add);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContentValues values = new ContentValues();
+                values.put(SavedStoryContract.SavedStory.COLUMN_NAME_TITLE, "Filip");
+                values.put(SavedStoryContract.SavedStory.COLUMN_NAME_SUBTITLE, "Cecelja");
+
+                long newRowID = db.insert(TABLE_NAME, null, values);
+                Log.i("Logger", "Print the database " + newRowID);
+                values.clear();
+            }
+        });
 
 
         readDb = helper.getReadableDatabase();
@@ -85,6 +104,9 @@ public class SavedFragment extends Fragment {
 
         adapterData.addAll(listData);
         list.setAdapter(adapterData);
+
+
+
 
         return rootView;
     }

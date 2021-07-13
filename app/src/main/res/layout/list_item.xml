@@ -35,7 +35,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/d"
+            android:id="@+id/save_article"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
