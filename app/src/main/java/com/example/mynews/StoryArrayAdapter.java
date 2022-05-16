@@ -68,6 +68,7 @@ public class StoryArrayAdapter extends ArrayAdapter<Story> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 ContentValues values = new ContentValues();
                 values.put(SavedStoryContract.SavedStory.COLUMN_NAME_TITLE, currentStory.getmTitle());
                 values.put(SavedStoryContract.SavedStory.COLUMN_NAME_SUBTITLE, currentStory.getmURL());

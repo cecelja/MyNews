@@ -10,14 +10,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.ContentView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -47,29 +51,7 @@ public class SavedFragment extends Fragment {
         db = helper.getWritableDatabase();
 
 
-        Button btnDelete = (Button) rootView.findViewById(R.id.button_delete);
 
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                db.delete(TABLE_NAME, null, null);
-            }
-        });
-
-
-        Button btnAdd = (Button) rootView.findViewById(R.id.button_add);
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ContentValues values = new ContentValues();
-                values.put(SavedStoryContract.SavedStory.COLUMN_NAME_TITLE, "Filip");
-                values.put(SavedStoryContract.SavedStory.COLUMN_NAME_SUBTITLE, "Cecelja");
-
-                long newRowID = db.insert(TABLE_NAME, null, values);
-                Log.i("Logger", "Print the database " + newRowID);
-                values.clear();
-            }
-        });
 
 
         readDb = helper.getReadableDatabase();
@@ -106,7 +88,23 @@ public class SavedFragment extends Fragment {
         list.setAdapter(adapterData);
 
 
+        Button btn = rootView.findViewById(R.id.delete);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.delete(TABLE_NAME, null, null);
+            }
+        });
 
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                podatci2.get(position);
+
+                Toast.makeText(getContext(), "Is it working?", Toast.LENGTH_LONG).show();
+                return true;
+            }
+        });
 
         return rootView;
     }

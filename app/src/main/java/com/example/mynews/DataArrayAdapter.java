@@ -1,6 +1,9 @@
 package com.example.mynews;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +17,10 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class DataArrayAdapter extends ArrayAdapter<DataModel> {
-
+    private Context context2;
     public DataArrayAdapter(Activity context, ArrayList<DataModel> list) {
         super(context,0, list);
+        context2 = context;
     }
 
     @NonNull
@@ -32,13 +36,21 @@ public class DataArrayAdapter extends ArrayAdapter<DataModel> {
 
         //Find the textView that displays the title in the list_item layout
         TextView title = (TextView) listItemView.findViewById(R.id.d);
+
         //Set the title String to the textView
         title.setText(currentData.getTitle());
 
         //Find the textView tht displays the date in the list_item layout
         TextView url = (TextView) listItemView.findViewById(R.id.date);
-        //Set the date String to the textView
-        url.setText(currentData.getUrl());
+
+        url.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(currentData.getUrl()));
+                context2.startActivity(intent);
+            }
+        });
+
 
         return listItemView;
     }
